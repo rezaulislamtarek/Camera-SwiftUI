@@ -12,3 +12,4 @@ public class CameraState : NSObject, ObservableObject {
     @Published public var capturedImage : UIImage?
     @Published public var capturedImageError : Error?
 }
+ 

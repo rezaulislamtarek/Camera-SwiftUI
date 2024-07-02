@@ -9,9 +9,12 @@ import SwiftUI
 
 @main
 struct Camera_SwiftUIApp: App {
+    @StateObject var cameraState = CameraState()
     var body: some Scene {
         WindowGroup {
-            ContentView()
-        }.environmentObject(CameraState())
+            NavigationView{
+                ContentView()
+            }.environmentObject(cameraState)
+        }
     }
 }

@@ -58,7 +58,7 @@ enum PhotoParseError : Error {
 
 private class PreviewView: UIView, AVCapturePhotoCaptureDelegate {
     
-    @EnvironmentObject var cameraState : CameraState
+    //@EnvironmentObject var cameraState : CameraState
     
     private var delegate: CameraViewDelegate?
     
@@ -151,7 +151,7 @@ private class PreviewView: UIView, AVCapturePhotoCaptureDelegate {
     
     func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
         if error != nil {
-            cameraState.capturedImageError = PhotoParseError.error(error!)
+            //cameraState.capturedImageError = PhotoParseError.error(error!)
             return
         }
         print("photo \(photo)")
@@ -159,7 +159,8 @@ private class PreviewView: UIView, AVCapturePhotoCaptureDelegate {
             let orientation = photo.metadata[kCGImagePropertyOrientation as String] as! NSNumber
             let uiOrientation = UIImage.Orientation(rawValue: orientation.intValue)!
             let image = UIImage(cgImage: cgImage, scale: 1, orientation: uiOrientation)
-            cameraState.capturedImage = image
+            delegate?.didFinishCapturingPhoto(image)
+            //cameraState.capturedImage = image
             print(image)
         }else {
             print(error?.localizedDescription)
